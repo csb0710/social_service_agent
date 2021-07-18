@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+    </style>
+    <script>
+      var i = 0;
+      function add() {
+        var x = document.getElementById('insert').value;
+        if(x != '') {
+          i++;
+          var content = document.getElementById('insert').value;
+
+          var yeonga = document.getElementById('yeonga');
+          var byongga = document.getElementById('byongga');
+          var mon = document.getElementById('Mon');
+          var tue = document.getElementById('Tue');
+          var wds = document.getElementById('Wds');
+          var thr = document.getElementById('Thr');
+          var fri = document.getElementById('Fri');
+          if(yeonga.checked)  {
+            var newadd = document.createElement('div');
+            var holyday = "연가";
+            newadd.innerHTML = '<label name = "cencel' + i + '" for="cencel' + i + '">' + content + "  " + holyday + "  " +'</label><input type = "button" id="cencel' + i + '" name="cencel' + i + '" value = "X" onclick = "removeelement(this)">';
+          }
+          else {
+            var newadd = document.createElement('div');
+            var holyday = "병가";
+            newadd.innerHTML = '<label name = "cencel' + i + '" for="cencel' + i + '">' + content + "  " + holyday + "  " +'</label><input type = "button" id="cencel' + i + '" name="cencel' + i + '" value = "X" onclick = "removeelement(this)">';
+          }
+          if(mon.checked) {
+            document.getElementById('day0').appendChild(newadd);
+          }
+          else if(tue.checked) {
+            document.getElementById('day1').appendChild(newadd);
+          }
+          else if(wds.checked) {
+            document.getElementById('day2').appendChild(newadd);
+          }
+          else if(thr.checked) {
+            document.getElementById('day3').appendChild(newadd);
+          }
+          else {
+            document.getElementById('day4').appendChild(newadd);
+          }
+        }
+      }
+      function removeelement(object) {
+          var x = object.id;
+          var removebutton = document.getElementById(x);
+          var removelabel = document.getElementsByName(x);
+          removebutton.remove();
+          for(var i=removelabel.length-1;i>=0;i--)  {
+              removelabel[i].parentNode.removeChild(removelabel[i]);
+          }
+      }
+      function viewYearMonth() {
+        const date = new Date();
+        const viewYear = date.getFullYear();
+        const viewMonth = date.getMonth()+1;
+        const viewYear_Month = viewYear + "년 " + viewMonth + "월";
+        document.getElementById("yearmonth").textContent = viewYear_Month;
+      }
+      function addweek() {
+        var day = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+
+        for(var i = 0; i < day.length; i++) {
+          var newadd = document.createElement('div');
+          // var newlabeladd = document.createElement('div');
+          newadd.innerHTML = '<label id = "day'+ i + '">' + day[i] + '</label>'
+          // newlabeladd.innerHTML = '<label id = "day_inner'+ i + '"></label>'
+          document.getElementById('week').appendChild(newadd);
+          // document.getElementById('week').appendChild(newlabeladd);
+        }
+
+      }
+
+
+    </script>
+  </head>
+  <body>
+    <div id="yearmonth"></div>
+    <script>viewYearMonth();</script>
+    <div id = "container">
+      <input id = "insert" type = "text">
+      <div>
+      <input type="radio" id="yeonga" name="holyday" value="yeonga">
+      <label for="yeonga">연가</label>
+      </div>
+      <div>
+        <input type="radio" id="byongga" name="holyday" value="byongga">
+        <label for="byongga">병가</label>
+      </div>
+      <br>
+      <span>
+      <input type="radio" id="Mon" name="day_selector" value="Mon">
+      <label for="yeonga">월</label>
+    </span>
+      <span>
+        <input type="radio" id="Tue" name="day_selector" value="Tue">
+        <label for="byongga">화</label>
+      </span>
+      <span>
+        <input type="radio" id="Wds" name="day_selector" value="Wds">
+        <label for="byongga">수</label>
+      </span>
+      <span>
+        <input type="radio" id="Thr" name="day_selector" value="Thr">
+        <label for="byongga">목</label>
+      </span>
+      <span>
+        <input type="radio" id="Fri" name="day_selector" value="Fri">
+        <label for="byongga">금</label>
+      </span>
+      <br>
+      <div></div>
+      <input id = "okay" type = "button" value = "추가" onclick = "add()">
+    </div>
+    <div id="week"></div>
+    <script>addweek();</script>
+  </body>
+</html>
